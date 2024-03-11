@@ -3,6 +3,7 @@ import 'aws-amplify';
 import { TextAreaField, Button, CheckboxField, Flex } from '@aws-amplify/ui-react';
 import axios from 'axios';
 import { toXML } from 'jstoxml';
+import ReactHtmlParser from 'html-react-parser';
 
   function postData() {
     const content =  document.getElementById('business_summary').value;
@@ -30,12 +31,14 @@ import { toXML } from 'jstoxml';
       if(document.getElementById("result") == undefined){
         const result = document.createElement("div");
         result.id = "result";
-        result.style.whiteSpace= 'pre-wrap';
+        //result.style.whiteSpace= 'pre-line';
         console.log((JSON.parse(response.data.body)).completion)
         const summary = JSON.parse(response.data.body).completion
+        
         document.getElementById("loading").remove();
         isLoading = false;
-        result.innerHTML = JSON.stringify(summary)
+        
+        result.innerHTML = summary
        
         document.getElementById('summary').appendChild(result_label).appendChild(result);
      
@@ -44,7 +47,7 @@ import { toXML } from 'jstoxml';
         const summary = JSON.parse(response.data.body).completion
         document.getElementById("loading").remove();
         isLoading = false;
-        result.innerHTML = JSON.stringify(summary)
+        result.innerHTML = summary
         document.getElementById('summary').appendChild(result_label).appendChild(result);
         
       }
